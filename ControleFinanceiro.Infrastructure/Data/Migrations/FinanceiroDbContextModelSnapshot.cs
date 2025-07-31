@@ -38,6 +38,15 @@ namespace ControleFinanceiro.Infrastructure.Data.Migrations
                     .HasMaxLength(16)
                     .HasColumnType("nvarchar(16)");
 
+                b.Property<string>("Bandeira")
+                    .IsRequired()
+                    .HasMaxLength(20)
+                    .HasColumnType("nvarchar(20)");
+
+                b.Property<string>("NumeroFinal")
+                    .HasMaxLength(4)
+                    .HasColumnType("nvarchar(4)");
+
                 b.Property<Guid>("PessoaId")
                     .HasColumnType("uniqueidentifier");
 
