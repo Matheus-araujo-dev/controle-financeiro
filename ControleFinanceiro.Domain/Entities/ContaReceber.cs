@@ -22,6 +22,8 @@ namespace ControleFinanceiro.Domain.Entities
 
         public bool EstaRecebido { get; set; }
 
+        public MetodoPagamento MetodoPagamento { get; set; }
+
         public Pessoa Pessoa { get; set; }
     }
 }

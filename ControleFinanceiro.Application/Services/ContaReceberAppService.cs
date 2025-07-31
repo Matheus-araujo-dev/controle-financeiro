@@ -8,10 +8,12 @@ namespace ControleFinanceiro.Application.Services
     public class ContaReceberAppService : IContaReceberAppService
     {
         private readonly IContaReceberRepository _repository;
+        private readonly IMovimentacaoFinanceiraRepository _movimentacoes;
 
-        public ContaReceberAppService(IContaReceberRepository repository)
+        public ContaReceberAppService(IContaReceberRepository repository, IMovimentacaoFinanceiraRepository movimentacoes)
         {
             _repository = repository;
+            _movimentacoes = movimentacoes;
         }
 
         public void Add(ContaReceber contaReceber)
@@ -21,6 +23,7 @@ namespace ControleFinanceiro.Application.Services
                 throw new InvalidOperationException("Valor deve ser maior que zero.");
             }
             _repository.Add(contaReceber);
+            RegistrarMovimentacaoSeNecessario(contaReceber);
         }
 
         public void Update(ContaReceber contaReceber)
@@ -30,6 +33,7 @@ namespace ControleFinanceiro.Application.Services
                 throw new InvalidOperationException("Valor deve ser maior que zero.");
             }
             _repository.Update(contaReceber);
+            RegistrarMovimentacaoSeNecessario(contaReceber);
         }
 
         public void Delete(Guid id)
@@ -55,6 +59,22 @@ namespace ControleFinanceiro.Application.Services
         public IEnumerable<ContaReceber> GetByStatus(bool estaRecebido)
         {
             return _repository.GetByStatus(estaRecebido);
+        }
+
+        private void RegistrarMovimentacaoSeNecessario(ContaReceber conta)
+        {
+            if (conta.EstaRecebido && conta.MetodoPagamento.PossuiLiquidacaoAutomatica())
+            {
+                var mov = new MovimentacaoFinanceira
+                {
+                    PessoaId = conta.PessoaId,
+                    Tipo = TipoMovimentacao.Entrada,
+                    Valor = conta.Valor,
+                    Data = conta.DataRecebimento ?? DateTime.Now,
+                    Descricao = conta.Descricao
+                };
+                _movimentacoes.Add(mov);
+            }
         }
     }
 }
