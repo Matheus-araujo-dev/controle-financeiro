@@ -16,6 +16,7 @@ namespace ControleFinanceiro.Infrastructure.Data
         public DbSet<ContaReceber> ContasReceber { get; set; }
         public DbSet<MovimentacaoFinanceira> MovimentacoesFinanceiras { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -40,6 +41,10 @@ namespace ControleFinanceiro.Infrastructure.Data
                 .HasOne(m => m.Pessoa)
                 .WithMany(p => p.MovimentacoesFinanceiras)
                 .HasForeignKey(m => m.PessoaId);
+
+            modelBuilder.Entity<Usuario>()
+                .HasIndex(u => u.Email)
+                .IsUnique();
         }
     }
 }

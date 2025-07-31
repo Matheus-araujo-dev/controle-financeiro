@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using ControleFinanceiro.Application.Services;
 using ControleFinanceiro.Domain.Entities;
 
 namespace ControleFinanceiro.Api.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class PessoasController : ControllerBase
