@@ -21,6 +21,7 @@ namespace ControleFinanceiro.Api
 
             builder.Services.AddScoped<IPessoaRepository, PessoaRepository>();
             builder.Services.AddScoped<ICartaoRepository, CartaoRepository>();
+            builder.Services.AddScoped<IContaBancariaRepository, ContaBancariaRepository>();
             builder.Services.AddScoped<IContaPagarRepository, ContaPagarRepository>();
             builder.Services.AddScoped<IContaReceberRepository, ContaReceberRepository>();
             builder.Services.AddScoped<IMovimentacaoFinanceiraRepository, MovimentacaoFinanceiraRepository>();

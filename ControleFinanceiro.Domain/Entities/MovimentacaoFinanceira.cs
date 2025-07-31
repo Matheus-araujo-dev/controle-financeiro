@@ -9,6 +9,9 @@ namespace ControleFinanceiro.Domain.Entities
         public Guid PessoaId { get; set; }
 
         [Required]
+        public Guid ContaBancariaId { get; set; }
+
+        [Required]
         public TipoMovimentacao Tipo { get; set; }
 
         [Required]
@@ -21,5 +24,6 @@ namespace ControleFinanceiro.Domain.Entities
         public string Descricao { get; set; }
 
         public Pessoa Pessoa { get; set; }
+        public ContaBancaria ContaBancaria { get; set; }
     }
 }

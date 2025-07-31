@@ -12,6 +12,7 @@ namespace ControleFinanceiro.Infrastructure.Data
 
         public DbSet<Pessoa> Pessoas { get; set; }
         public DbSet<Cartao> Cartoes { get; set; }
+        public DbSet<ContaBancaria> ContasBancarias { get; set; }
         public DbSet<ContaPagar> ContasPagar { get; set; }
         public DbSet<ContaReceber> ContasReceber { get; set; }
         public DbSet<MovimentacaoFinanceira> MovimentacoesFinanceiras { get; set; }
@@ -25,6 +26,11 @@ namespace ControleFinanceiro.Infrastructure.Data
             modelBuilder.Entity<Cartao>()
                 .HasOne(c => c.Pessoa)
                 .WithMany(p => p.Cartoes)
+                .HasForeignKey(c => c.PessoaId);
+
+            modelBuilder.Entity<ContaBancaria>()
+                .HasOne(c => c.Pessoa)
+                .WithMany(p => p.ContasBancarias)
                 .HasForeignKey(c => c.PessoaId);
 
             modelBuilder.Entity<ContaPagar>()
@@ -41,6 +47,23 @@ namespace ControleFinanceiro.Infrastructure.Data
                 .HasOne(m => m.Pessoa)
                 .WithMany(p => p.MovimentacoesFinanceiras)
                 .HasForeignKey(m => m.PessoaId);
+
+            modelBuilder.Entity<MovimentacaoFinanceira>()
+                .HasOne(m => m.ContaBancaria)
+                .WithMany(c => c.MovimentacoesFinanceiras)
+                .HasForeignKey(m => m.ContaBancariaId);
+
+            modelBuilder.Entity<Transaction>()
+                .HasOne(t => t.ContaOrigem)
+                .WithMany(c => c.TransacoesOrigem)
+                .HasForeignKey(t => t.ContaOrigemId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Transaction>()
+                .HasOne(t => t.ContaDestino)
+                .WithMany(c => c.TransacoesDestino)
+                .HasForeignKey(t => t.ContaDestinoId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Usuario>()
                 .HasIndex(u => u.Email)
