@@ -146,6 +146,35 @@ namespace ControleFinanceiro.Infrastructure.Data.Migrations
                 b.ToTable("MovimentacoesFinanceiras");
             });
 
+            modelBuilder.Entity("ControleFinanceiro.Domain.Entities.FormaPagamento", b =>
+            {
+                b.Property<Guid>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("uniqueidentifier");
+
+                b.Property<bool>("BaixarAutomaticamente")
+                    .HasColumnType("bit");
+
+                b.Property<Guid?>("CartaoId")
+                    .HasColumnType("uniqueidentifier");
+
+                b.Property<string>("Descricao")
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .HasColumnType("nvarchar(100)");
+
+                b.Property<Guid>("PessoaId")
+                    .HasColumnType("uniqueidentifier");
+
+                b.HasKey("Id");
+
+                b.HasIndex("CartaoId");
+
+                b.HasIndex("PessoaId");
+
+                b.ToTable("FormasPagamento");
+            });
+
             modelBuilder.Entity("ControleFinanceiro.Domain.Entities.Pessoa", b =>
             {
                 b.Property<Guid>("Id")
