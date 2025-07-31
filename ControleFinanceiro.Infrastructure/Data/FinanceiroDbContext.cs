@@ -42,6 +42,11 @@ namespace ControleFinanceiro.Infrastructure.Data
                 .WithMany(p => p.MovimentacoesFinanceiras)
                 .HasForeignKey(m => m.PessoaId);
 
+            modelBuilder.Entity<Transaction>()
+                .HasOne(t => t.Pessoa)
+                .WithMany()
+                .HasForeignKey(t => t.PessoaId);
+
             modelBuilder.Entity<Usuario>()
                 .HasIndex(u => u.Email)
                 .IsUnique();
