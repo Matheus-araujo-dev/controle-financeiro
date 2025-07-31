@@ -27,18 +27,18 @@ Essa separação mantém as regras de negócio isoladas das preocupações de in
 
 - **.NET SDK 8.0 ou superior** – [Baixar aqui](https://dotnet.microsoft.com/download)
 - Instância do **SQL Server** (LocalDB ou SQL Server completo)
-- Ferramentas de linha de comando do EF Core (`dotnet tool install --global dotnet-ef`)
+- Ferramentas de linha de comando do EF Core (execute `dotnet tool restore` para instalar o `dotnet-ef` localmente)
 
 ## Configuração do banco e migrações
 
 1. Atualize a string de conexão em `appsettings.json` no projeto da API para apontar para sua instância do SQL Server.
 2. Crie a migração inicial:
    ```bash
-   dotnet ef migrations add InitialCreate -s src/ControleFinanceiro.Api/ControleFinanceiro.Api.csproj -p src/ControleFinanceiro.Infrastructure/ControleFinanceiro.Infrastructure.csproj
+   dotnet ef migrations add InitialCreate -s ControleFinanceiro.Api/ControleFinanceiro.Api.csproj -p ControleFinanceiro.Infrastructure/ControleFinanceiro.Infrastructure.csproj
    ```
 3. Aplique a migração para criar o esquema do banco de dados:
    ```bash
-   dotnet ef database update -s src/ControleFinanceiro.Api/ControleFinanceiro.Api.csproj -p src/ControleFinanceiro.Infrastructure/ControleFinanceiro.Infrastructure.csproj
+   dotnet ef database update -s ControleFinanceiro.Api/ControleFinanceiro.Api.csproj -p ControleFinanceiro.Infrastructure/ControleFinanceiro.Infrastructure.csproj
    ```
 
 ## Build e execução da API
@@ -46,7 +46,7 @@ Essa separação mantém as regras de negócio isoladas das preocupações de in
 Restaure as dependências e execute o projeto a partir da camada de API:
 
 ```bash
-cd src/ControleFinanceiro.Api
+cd ControleFinanceiro.Api
 dotnet restore
 dotnet run
 ```
