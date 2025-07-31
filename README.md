@@ -29,6 +29,8 @@ Essa separação mantém as regras de negócio isoladas das preocupações de in
 - Instância do **SQL Server** (LocalDB ou SQL Server completo)
 - Ferramentas de linha de comando do EF Core (execute `dotnet tool restore` para instalar o `dotnet-ef` localmente)
 
+Todos os projetos da solução estão configurados para o *Target Framework* `net8.0`, garantindo compatibilidade total com o .NET 8.
+
 ## Configuração do banco e migrações
 
 1. Atualize a string de conexão em `appsettings.json` no projeto da API para apontar para sua instância do SQL Server.
@@ -43,15 +45,16 @@ Essa separação mantém as regras de negócio isoladas das preocupações de in
 
 ## Build e execução da API
 
-Restaure as dependências e execute o projeto a partir da camada de API:
+Restaure as dependências, compile a solução e execute o projeto da API:
 
 ```bash
 cd ControleFinanceiro.Api
 dotnet restore
+dotnet build
 dotnet run
 ```
 
-A API escutará em `https://localhost:5001` por padrão. Você pode explorar os endpoints disponíveis no Swagger UI em `https://localhost:5001/swagger`.
+A API escutará em `https://localhost:5001` por padrão. Para consultar e testar os endpoints disponíveis, abra `https://localhost:5001/swagger` no navegador, onde a documentação interativa do Swagger estará disponível.
 
 ## Contribuindo
 
