@@ -16,18 +16,36 @@ namespace ControleFinanceiro.Application.Services
 
         public void Add(ContaReceber contaReceber)
         {
-            if (contaReceber.Valor <= 0)
+            if (contaReceber.ValorTotal <= 0 || contaReceber.NumeroParcelas <= 0)
             {
-                throw new InvalidOperationException("Valor deve ser maior que zero.");
+                throw new InvalidOperationException("Valor total e número de parcelas devem ser maiores que zero.");
             }
-            _repository.Add(contaReceber);
+
+            decimal valorParcela = contaReceber.ValorTotal / contaReceber.NumeroParcelas;
+
+            for (int i = 0; i < contaReceber.NumeroParcelas; i++)
+            {
+                var parcela = new ContaReceber
+                {
+                    Id = Guid.NewGuid(),
+                    PessoaId = contaReceber.PessoaId,
+                    Descricao = $"{contaReceber.Descricao} - Parcela {i + 1}/{contaReceber.NumeroParcelas}",
+                    Responsavel = contaReceber.Responsavel,
+                    ValorTotal = contaReceber.ValorTotal,
+                    NumeroParcelas = contaReceber.NumeroParcelas,
+                    Valor = valorParcela,
+                    DataVencimento = contaReceber.DataVencimento.AddMonths(i)
+                };
+
+                _repository.Add(parcela);
+            }
         }
 
         public void Update(ContaReceber contaReceber)
         {
-            if (contaReceber.Valor <= 0)
+            if (contaReceber.Valor <= 0 || contaReceber.ValorTotal <= 0 || contaReceber.NumeroParcelas <= 0)
             {
-                throw new InvalidOperationException("Valor deve ser maior que zero.");
+                throw new InvalidOperationException("Valor, valor total e número de parcelas devem ser maiores que zero.");
             }
             _repository.Update(contaReceber);
         }

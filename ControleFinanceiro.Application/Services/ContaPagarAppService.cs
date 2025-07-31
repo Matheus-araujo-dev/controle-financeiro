@@ -16,18 +16,36 @@ namespace ControleFinanceiro.Application.Services
 
         public void Add(ContaPagar contaPagar)
         {
-            if (contaPagar.Valor <= 0)
+            if (contaPagar.ValorTotal <= 0 || contaPagar.NumeroParcelas <= 0)
             {
-                throw new InvalidOperationException("Valor deve ser maior que zero.");
+                throw new InvalidOperationException("Valor total e número de parcelas devem ser maiores que zero.");
             }
-            _repository.Add(contaPagar);
+
+            decimal valorParcela = contaPagar.ValorTotal / contaPagar.NumeroParcelas;
+
+            for (int i = 0; i < contaPagar.NumeroParcelas; i++)
+            {
+                var parcela = new ContaPagar
+                {
+                    Id = Guid.NewGuid(),
+                    PessoaId = contaPagar.PessoaId,
+                    Descricao = $"{contaPagar.Descricao} - Parcela {i + 1}/{contaPagar.NumeroParcelas}",
+                    Responsavel = contaPagar.Responsavel,
+                    ValorTotal = contaPagar.ValorTotal,
+                    NumeroParcelas = contaPagar.NumeroParcelas,
+                    Valor = valorParcela,
+                    DataVencimento = contaPagar.DataVencimento.AddMonths(i)
+                };
+
+                _repository.Add(parcela);
+            }
         }
 
         public void Update(ContaPagar contaPagar)
         {
-            if (contaPagar.Valor <= 0)
+            if (contaPagar.Valor <= 0 || contaPagar.ValorTotal <= 0 || contaPagar.NumeroParcelas <= 0)
             {
-                throw new InvalidOperationException("Valor deve ser maior que zero.");
+                throw new InvalidOperationException("Valor, valor total e número de parcelas devem ser maiores que zero.");
             }
             _repository.Update(contaPagar);
         }

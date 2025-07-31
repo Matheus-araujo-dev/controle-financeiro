@@ -13,6 +13,16 @@ namespace ControleFinanceiro.Domain.Entities
         public string Descricao { get; set; }
 
         [Required]
+        [StringLength(100)]
+        public string Responsavel { get; set; }
+
+        [Required]
+        public decimal ValorTotal { get; set; }
+
+        [Required]
+        public int NumeroParcelas { get; set; }
+
+        [Required]
         public decimal Valor { get; set; }
 
         [Required]
