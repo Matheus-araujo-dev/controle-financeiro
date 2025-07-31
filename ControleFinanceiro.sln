@@ -1,0 +1,14 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleFinanceiro.Api", "ControleFinanceiro.Api/ControleFinanceiro.Api.csproj", "{271c1917-5419-498b-906c-e7a654f3c76a}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleFinanceiro.Application", "ControleFinanceiro.Application/ControleFinanceiro.Application.csproj", "{20f5b9a3-ebf2-4975-b0c0-5e72cccfec88}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleFinanceiro.Domain", "ControleFinanceiro.Domain/ControleFinanceiro.Domain.csproj", "{86a169f8-168b-446a-9fb7-2782e26d4d8a}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleFinanceiro.Infrastructure", "ControleFinanceiro.Infrastructure/ControleFinanceiro.Infrastructure.csproj", "{3a8e87ac-bd61-4a51-8648-98b600ef0433}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleFinanceiro.Shared", "ControleFinanceiro.Shared/ControleFinanceiro.Shared.csproj", "{24bef3ef-4ac1-49c9-ab53-2f2acead54a6}"
+EndProject
+Global
+EndGlobal
