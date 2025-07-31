@@ -8,5 +8,6 @@ This repository contains a basic ASP.NET Core solution with multiple projects:
 - **ControleFinanceiro.Infrastructure** – data access implementations.
 - **ControleFinanceiro.Shared** – shared utilities and constants.
 
-The projects only include placeholder classes and initial folder structure.
+The solution demonstrates a clean architecture approach. All classes are kept
+simple and only provide minimal placeholder logic.
 

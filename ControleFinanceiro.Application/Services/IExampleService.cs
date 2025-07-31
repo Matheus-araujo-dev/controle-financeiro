@@ -1,7 +1,6 @@
-namespace ControleFinanceiro.Application.Services
+namespace ControleFinanceiro.Application.Services;
+
+public interface IExampleService
 {
-    public interface IExampleService
-    {
-        void DoWork();
-    }
+    string DoWork();
 }

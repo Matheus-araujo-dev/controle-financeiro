@@ -1,10 +1,9 @@
-namespace ControleFinanceiro.Application.Services
+namespace ControleFinanceiro.Application.Services;
+
+public class ExampleService : IExampleService
 {
-    public class ExampleService : IExampleService
+    public string DoWork()
     {
-        public void DoWork()
-        {
-            // Placeholder service implementation
-        }
+        return "Service working";
     }
 }

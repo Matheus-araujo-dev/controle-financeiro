@@ -1,10 +1,11 @@
-namespace ControleFinanceiro.Api
-{
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            // Placeholder for ASP.NET Core setup
-        }
-    }
-}
+using ControleFinanceiro.Application.Services;
+
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddControllers();
+builder.Services.AddSingleton<IExampleService, ExampleService>();
+
+var app = builder.Build();
+
+app.MapControllers();
+
+app.Run();

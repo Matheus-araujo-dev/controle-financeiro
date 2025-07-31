@@ -1,7 +1,14 @@
-namespace ControleFinanceiro.Api.Controllers
+using Microsoft.AspNetCore.Mvc;
+
+namespace ControleFinanceiro.Api.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class HomeController : ControllerBase
 {
-    public class HomeController
+    [HttpGet]
+    public IActionResult Get()
     {
-        // Placeholder controller
+        return Ok("ControleFinanceiro API running");
     }
 }

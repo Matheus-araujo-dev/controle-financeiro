@@ -1,7 +1,10 @@
-namespace ControleFinanceiro.Domain.Entities
+using System;
+
+namespace ControleFinanceiro.Domain.Entities;
+
+public class Transaction
 {
-    public class Transaction
-    {
-        // Placeholder entity
-    }
+    public Guid Id { get; set; }
+    public decimal Amount { get; set; }
+    public DateTime Date { get; set; }
 }
