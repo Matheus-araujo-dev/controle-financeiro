@@ -2,6 +2,16 @@
 
 Controle Financeiro é uma Web API ASP.NET Core para gerenciar finanças pessoais e empresariais. A API permite registrar receitas, despesas e categorias para que você acompanhe seu fluxo de caixa de forma organizada.
 
+Este repositório contém uma solução ASP.NET Core com múltiplos projetos:
+
+- **ControleFinanceiro.Api** – ponto de entrada da API com controllers e configuração.
+- **ControleFinanceiro.Application** – serviços e casos de uso.
+- **ControleFinanceiro.Domain** – entidades de domínio e interfaces de repositório.
+- **ControleFinanceiro.Infrastructure** – implementações de acesso a dados.
+- **ControleFinanceiro.Shared** – utilitários e constantes compartilhadas.
+
+Os projetos incluem classes de exemplo e uma estrutura inicial para você expandir.
+
 ## Arquitetura
 
 A solução está organizada em quatro camadas principais:
@@ -46,4 +56,3 @@ A API escutará em `https://localhost:5001` por padrão. Você pode explorar os 
 ## Contribuindo
 
 Sinta-se à vontade para fazer fork deste repositório, abrir issues e enviar pull requests. Relatos de bugs e ideias de funcionalidades são bem-vindos!
-
