@@ -34,6 +34,7 @@ namespace ControleFinanceiro.Api
             builder.Services.AddScoped<IMovimentacaoFinanceiraAppService, MovimentacaoFinanceiraAppService>();
             builder.Services.AddScoped<ITransactionAppService, TransactionAppService>();
             builder.Services.AddScoped<IUsuarioAppService, UsuarioAppService>();
+            builder.Services.AddScoped<IRelatorioFinanceiroAppService, RelatorioFinanceiroAppService>();
 
             var jwtSection = builder.Configuration.GetSection("Jwt");
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
