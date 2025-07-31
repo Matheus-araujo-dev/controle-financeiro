@@ -3,6 +3,9 @@ using ControleFinanceiro.Application.Services;
 using ControleFinanceiro.Domain.Repositories;
 using ControleFinanceiro.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace ControleFinanceiro.Api
 {
@@ -22,6 +25,7 @@ namespace ControleFinanceiro.Api
             builder.Services.AddScoped<IContaReceberRepository, ContaReceberRepository>();
             builder.Services.AddScoped<IMovimentacaoFinanceiraRepository, MovimentacaoFinanceiraRepository>();
             builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
+            builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
             builder.Services.AddScoped<IPessoaAppService, PessoaAppService>();
             builder.Services.AddScoped<ICartaoAppService, CartaoAppService>();
@@ -29,6 +33,25 @@ namespace ControleFinanceiro.Api
             builder.Services.AddScoped<IContaReceberAppService, ContaReceberAppService>();
             builder.Services.AddScoped<IMovimentacaoFinanceiraAppService, MovimentacaoFinanceiraAppService>();
             builder.Services.AddScoped<ITransactionAppService, TransactionAppService>();
+            builder.Services.AddScoped<IUsuarioAppService, UsuarioAppService>();
+
+            var jwtSection = builder.Configuration.GetSection("Jwt");
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = jwtSection["Issuer"],
+                        ValidAudience = jwtSection["Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSection["Key"]))
+                    };
+                });
+
+            builder.Services.AddAuthorization();
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
@@ -41,6 +64,9 @@ namespace ControleFinanceiro.Api
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.MapControllers();
 
