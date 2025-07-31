@@ -12,8 +12,9 @@ namespace ControleFinanceiro.Api
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<FinanceiroDbContext>(options =>
-                options.UseInMemoryDatabase("FinanceiroDb"));
+                options.UseSqlServer(connectionString));
 
             builder.Services.AddScoped<IPessoaRepository, PessoaRepository>();
             builder.Services.AddScoped<ICartaoRepository, CartaoRepository>();
