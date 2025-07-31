@@ -160,6 +160,14 @@ namespace ControleFinanceiro.Infrastructure.Data.Migrations
                     .HasMaxLength(14)
                     .HasColumnType("nvarchar(14)");
 
+                b.Property<bool>("Ativo")
+                    .HasColumnType("bit")
+                    .HasDefaultValue(true);
+
+                b.Property<string>("Telefone")
+                    .HasMaxLength(20)
+                    .HasColumnType("nvarchar(20)");
+
                 b.Property<string>("Email")
                     .IsRequired()
                     .HasColumnType("nvarchar(max)");

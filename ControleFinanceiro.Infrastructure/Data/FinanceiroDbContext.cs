@@ -22,6 +22,14 @@ namespace ControleFinanceiro.Infrastructure.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Pessoa>()
+                .Property(p => p.Telefone)
+                .HasMaxLength(20);
+
+            modelBuilder.Entity<Pessoa>()
+                .Property(p => p.Ativo)
+                .HasDefaultValue(true);
+
             modelBuilder.Entity<Cartao>()
                 .HasOne(c => c.Pessoa)
                 .WithMany(p => p.Cartoes)

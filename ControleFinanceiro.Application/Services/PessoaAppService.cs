@@ -21,6 +21,7 @@ namespace ControleFinanceiro.Application.Services
                 throw new InvalidOperationException("Documento já cadastrado.");
             }
 
+            pessoa.Ativo = true;
             _pessoaRepository.Add(pessoa);
         }
 
