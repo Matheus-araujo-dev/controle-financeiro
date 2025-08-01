@@ -74,7 +74,30 @@ namespace ControleFinanceiro.Application.Services
             {
                 throw new InvalidOperationException("Valor, valor total e número de parcelas devem ser maiores que zero.");
             }
+
+            var existente = _repository.GetById(contaReceber.Id);
+            bool gerarMovimentacao = existente != null && !existente.EstaRecebido && contaReceber.EstaRecebido;
+
+            if (gerarMovimentacao && !contaReceber.DataRecebimento.HasValue)
+            {
+                contaReceber.DataRecebimento = DateTime.Now;
+            }
+
             _repository.Update(contaReceber);
+
+            if (gerarMovimentacao)
+            {
+                var mov = new MovimentacaoFinanceira
+                {
+                    Id = Guid.NewGuid(),
+                    PessoaId = contaReceber.PessoaId,
+                    Tipo = TipoMovimentacao.Entrada,
+                    Valor = contaReceber.Valor,
+                    Data = contaReceber.DataRecebimento.Value,
+                    Descricao = contaReceber.Descricao
+                };
+                _movimentacaoRepository.Add(mov);
+            }
         }
 
         public void Delete(Guid id)
