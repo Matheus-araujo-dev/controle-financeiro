@@ -170,6 +170,9 @@ namespace ControleFinanceiro.Infrastructure.Data.Migrations
                     .HasMaxLength(200)
                     .HasColumnType("nvarchar(200)");
 
+                b.Property<Guid?>("ContaBancariaId")
+                    .HasColumnType("uniqueidentifier");
+
                 b.Property<Guid>("PessoaId")
                     .HasColumnType("uniqueidentifier");
 
@@ -181,6 +184,7 @@ namespace ControleFinanceiro.Infrastructure.Data.Migrations
 
                 b.HasKey("Id");
 
+                b.HasIndex("ContaBancariaId");
                 b.HasIndex("PessoaId");
 
                 b.ToTable("MovimentacoesFinanceiras");

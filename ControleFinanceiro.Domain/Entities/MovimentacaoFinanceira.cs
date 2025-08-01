@@ -20,6 +20,10 @@ namespace ControleFinanceiro.Domain.Entities
         [StringLength(200)]
         public string Descricao { get; set; }
 
+        public Guid? ContaBancariaId { get; set; }
+
+        public ContaBancaria ContaBancaria { get; set; }
+
         public Pessoa Pessoa { get; set; }
     }
 }
