@@ -47,6 +47,10 @@ Todos os projetos da solução estão configurados para o *Target Framework* `ne
    dotnet ef migrations add AddUsuarios -s ControleFinanceiro.Api/ControleFinanceiro.Api.csproj -p ControleFinanceiro.Infrastructure/ControleFinanceiro.Infrastructure.csproj
    dotnet ef database update -s ControleFinanceiro.Api/ControleFinanceiro.Api.csproj -p ControleFinanceiro.Infrastructure/ControleFinanceiro.Infrastructure.csproj
    ```
+5. Após aplicar a migração `UpdateSensitiveFieldSizes`, execute novamente:
+   ```bash
+   dotnet ef database update -s ControleFinanceiro.Api/ControleFinanceiro.Api.csproj -p ControleFinanceiro.Infrastructure/ControleFinanceiro.Infrastructure.csproj
+   ```
 
 ## Configurando a chave de criptografia
 
