@@ -31,5 +31,6 @@ namespace ControleFinanceiro.Domain.Entities
         public ICollection<ContaReceber> ContasReceber { get; set; } = new List<ContaReceber>();
         public ICollection<MovimentacaoFinanceira> MovimentacoesFinanceiras { get; set; } = new List<MovimentacaoFinanceira>();
         public ICollection<FormaPagamento> FormasPagamento { get; set; } = new List<FormaPagamento>();
+        public ICollection<ContaBancaria> ContasBancarias { get; set; } = new List<ContaBancaria>();
     }
 }

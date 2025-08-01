@@ -16,6 +16,7 @@ namespace ControleFinanceiro.Infrastructure.Data
         public DbSet<ContaReceber> ContasReceber { get; set; }
         public DbSet<MovimentacaoFinanceira> MovimentacoesFinanceiras { get; set; }
         public DbSet<FormaPagamento> FormasPagamento { get; set; }
+        public DbSet<ContaBancaria> ContasBancarias { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
 
@@ -50,6 +51,11 @@ namespace ControleFinanceiro.Infrastructure.Data
                 .HasOne(m => m.Pessoa)
                 .WithMany(p => p.MovimentacoesFinanceiras)
                 .HasForeignKey(m => m.PessoaId);
+
+            modelBuilder.Entity<ContaBancaria>()
+                .HasOne(c => c.Pessoa)
+                .WithMany(p => p.ContasBancarias)
+                .HasForeignKey(c => c.PessoaId);
 
 
             modelBuilder.Entity<Usuario>()
