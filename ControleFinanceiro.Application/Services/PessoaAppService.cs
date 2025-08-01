@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using ControleFinanceiro.Domain.Entities;
 using ControleFinanceiro.Domain.Repositories;
+using ControleFinanceiro.Shared.Utils;
 
 namespace ControleFinanceiro.Application.Services
 {
@@ -16,6 +17,10 @@ namespace ControleFinanceiro.Application.Services
 
         public void Create(Pessoa pessoa)
         {
+            if (!DocumentoValidator.IsValid(pessoa.Documento))
+            {
+                throw new InvalidOperationException("Documento inválido.");
+            }
             if (_pessoaRepository.GetByDocumento(pessoa.Documento) != null)
             {
                 throw new InvalidOperationException("Documento já cadastrado.");
@@ -27,6 +32,11 @@ namespace ControleFinanceiro.Application.Services
 
         public void Update(Pessoa pessoa)
         {
+            if (!DocumentoValidator.IsValid(pessoa.Documento))
+            {
+                throw new InvalidOperationException("Documento inválido.");
+            }
+
             var existente = _pessoaRepository.GetById(pessoa.Id);
             if (existente == null)
             {
