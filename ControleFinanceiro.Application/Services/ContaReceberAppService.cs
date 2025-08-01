@@ -58,7 +58,8 @@ namespace ControleFinanceiro.Application.Services
                             Tipo = TipoMovimentacao.Entrada,
                             Valor = parcela.Valor,
                             Data = parcela.DataRecebimento.Value,
-                            Descricao = parcela.Descricao
+                            Descricao = parcela.Descricao,
+                            ContaReceberId = parcela.Id
                         };
                         _movimentacaoRepository.Add(mov);
                     }
@@ -94,7 +95,8 @@ namespace ControleFinanceiro.Application.Services
                     Tipo = TipoMovimentacao.Entrada,
                     Valor = contaReceber.Valor,
                     Data = contaReceber.DataRecebimento.Value,
-                    Descricao = contaReceber.Descricao
+                    Descricao = contaReceber.Descricao,
+                    ContaReceberId = contaReceber.Id
                 };
                 _movimentacaoRepository.Add(mov);
             }
