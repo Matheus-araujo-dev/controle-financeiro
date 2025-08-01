@@ -52,6 +52,12 @@ Todos os projetos da solução estão configurados para o *Target Framework* `ne
 
 Defina um valor seguro para `Crypto:Key` em `appsettings.json` ou por meio da variável de ambiente `Crypto__Key`. Essa chave é utilizada para criptografar dados sensíveis armazenados no banco de dados.
 
+## Configurando a autenticação JWT
+
+A API usa tokens JWT para autenticar as requisições. Os valores `Jwt:Key`, `Jwt:Issuer` e `Jwt:Audience` definem a chave de assinatura do token e os parâmetros de validação. Esses valores podem ser ajustados diretamente em `appsettings.json` ou em arquivos de configuração específicos do ambiente (`appsettings.*.json`).
+
+Caso prefira, cada chave também pode ser sobrescrita por variáveis de ambiente `Jwt__Key`, `Jwt__Issuer` e `Jwt__Audience`.
+
 
 ## Build e execução da API
 
