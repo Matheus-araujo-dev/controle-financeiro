@@ -22,7 +22,15 @@ namespace ControleFinanceiro.Domain.Entities
 
         public Guid? ContaBancariaId { get; set; }
 
+        public Guid? ContaPagarId { get; set; }
+
+        public Guid? ContaReceberId { get; set; }
+
         public ContaBancaria ContaBancaria { get; set; }
+
+        public ContaPagar ContaPagar { get; set; }
+
+        public ContaReceber ContaReceber { get; set; }
 
         public Pessoa Pessoa { get; set; }
     }

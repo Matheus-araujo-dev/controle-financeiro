@@ -173,6 +173,12 @@ namespace ControleFinanceiro.Infrastructure.Data.Migrations
                 b.Property<Guid?>("ContaBancariaId")
                     .HasColumnType("uniqueidentifier");
 
+                b.Property<Guid?>("ContaPagarId")
+                    .HasColumnType("uniqueidentifier");
+
+                b.Property<Guid?>("ContaReceberId")
+                    .HasColumnType("uniqueidentifier");
+
                 b.Property<Guid>("PessoaId")
                     .HasColumnType("uniqueidentifier");
 
@@ -185,6 +191,8 @@ namespace ControleFinanceiro.Infrastructure.Data.Migrations
                 b.HasKey("Id");
 
                 b.HasIndex("ContaBancariaId");
+                b.HasIndex("ContaPagarId");
+                b.HasIndex("ContaReceberId");
                 b.HasIndex("PessoaId");
 
                 b.ToTable("MovimentacoesFinanceiras");

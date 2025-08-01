@@ -58,7 +58,8 @@ namespace ControleFinanceiro.Application.Services
                             Tipo = TipoMovimentacao.Saida,
                             Valor = parcela.Valor,
                             Data = parcela.DataPagamento.Value,
-                            Descricao = parcela.Descricao
+                            Descricao = parcela.Descricao,
+                            ContaPagarId = parcela.Id
                         };
                         _movimentacaoRepository.Add(mov);
                     }
@@ -94,7 +95,8 @@ namespace ControleFinanceiro.Application.Services
                     Tipo = TipoMovimentacao.Saida,
                     Valor = contaPagar.Valor,
                     Data = contaPagar.DataPagamento.Value,
-                    Descricao = contaPagar.Descricao
+                    Descricao = contaPagar.Descricao,
+                    ContaPagarId = contaPagar.Id
                 };
                 _movimentacaoRepository.Add(mov);
             }
