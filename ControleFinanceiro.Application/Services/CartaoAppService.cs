@@ -16,6 +16,11 @@ namespace ControleFinanceiro.Application.Services
 
         public void Add(Cartao cartao)
         {
+            if (string.IsNullOrWhiteSpace(cartao.Bandeira))
+            {
+                throw new InvalidOperationException("Bandeira é obrigatória.");
+            }
+
             if (cartao.Limite <= 0)
             {
                 throw new InvalidOperationException("Limite deve ser maior que zero.");
@@ -24,11 +29,19 @@ namespace ControleFinanceiro.Application.Services
             {
                 throw new InvalidOperationException("Data de validade inválida.");
             }
+
+            cartao.NumeroFinal = ObterNumeroFinal(cartao.Numero);
+
             _repository.Add(cartao);
         }
 
         public void Update(Cartao cartao)
         {
+            if (string.IsNullOrWhiteSpace(cartao.Bandeira))
+            {
+                throw new InvalidOperationException("Bandeira é obrigatória.");
+            }
+
             if (cartao.Limite <= 0)
             {
                 throw new InvalidOperationException("Limite deve ser maior que zero.");
@@ -37,7 +50,20 @@ namespace ControleFinanceiro.Application.Services
             {
                 throw new InvalidOperationException("Data de validade inválida.");
             }
+
+            cartao.NumeroFinal = ObterNumeroFinal(cartao.Numero);
+
             _repository.Update(cartao);
+        }
+
+        private static string ObterNumeroFinal(string numero)
+        {
+            if (string.IsNullOrEmpty(numero))
+            {
+                return string.Empty;
+            }
+
+            return numero.Length > 4 ? numero[^4..] : numero;
         }
 
         public void Delete(Guid id)

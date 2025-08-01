@@ -16,12 +16,21 @@ namespace ControleFinanceiro.Infrastructure.Data
         public DbSet<ContaPagar> ContasPagar { get; set; }
         public DbSet<ContaReceber> ContasReceber { get; set; }
         public DbSet<MovimentacaoFinanceira> MovimentacoesFinanceiras { get; set; }
+        public DbSet<FormaPagamento> FormasPagamento { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Pessoa>()
+                .Property(p => p.Telefone)
+                .HasMaxLength(20);
+
+            modelBuilder.Entity<Pessoa>()
+                .Property(p => p.Ativo)
+                .HasDefaultValue(true);
 
             modelBuilder.Entity<Cartao>()
                 .HasOne(c => c.Pessoa)
@@ -52,6 +61,16 @@ namespace ControleFinanceiro.Infrastructure.Data
                 .HasOne(m => m.ContaBancaria)
                 .WithMany(c => c.MovimentacoesFinanceiras)
                 .HasForeignKey(m => m.ContaBancariaId);
+
+            modelBuilder.Entity<FormaPagamento>()
+                .HasOne(f => f.Pessoa)
+                .WithMany(p => p.FormasPagamento)
+                .HasForeignKey(f => f.PessoaId);
+
+            modelBuilder.Entity<FormaPagamento>()
+                .HasOne(f => f.Cartao)
+                .WithMany()
+                .HasForeignKey(f => f.CartaoId);
 
             modelBuilder.Entity<Transaction>()
                 .HasOne(t => t.ContaOrigem)
