@@ -8,10 +8,16 @@ namespace ControleFinanceiro.Application.Services
     public class ContaReceberAppService : IContaReceberAppService
     {
         private readonly IContaReceberRepository _repository;
+        private readonly IFormaPagamentoRepository _formaPagamentoRepository;
+        private readonly IMovimentacaoFinanceiraRepository _movimentacaoRepository;
 
-        public ContaReceberAppService(IContaReceberRepository repository)
+        public ContaReceberAppService(IContaReceberRepository repository,
+            IFormaPagamentoRepository formaPagamentoRepository,
+            IMovimentacaoFinanceiraRepository movimentacaoRepository)
         {
             _repository = repository;
+            _formaPagamentoRepository = formaPagamentoRepository;
+            _movimentacaoRepository = movimentacaoRepository;
         }
 
         public void Add(ContaReceber contaReceber)
@@ -34,8 +40,29 @@ namespace ControleFinanceiro.Application.Services
                     ValorTotal = contaReceber.ValorTotal,
                     NumeroParcelas = contaReceber.NumeroParcelas,
                     Valor = valorParcela,
-                    DataVencimento = contaReceber.DataVencimento.AddMonths(i)
+                    DataVencimento = contaReceber.DataVencimento.AddMonths(i),
+                    FormaPagamentoId = contaReceber.FormaPagamentoId
                 };
+
+                if (parcela.FormaPagamentoId.HasValue)
+                {
+                    var forma = _formaPagamentoRepository.GetById(parcela.FormaPagamentoId.Value);
+                    if (forma != null && forma.BaixarAutomaticamente)
+                    {
+                        parcela.EstaRecebido = true;
+                        parcela.DataRecebimento = DateTime.Now;
+                        var mov = new MovimentacaoFinanceira
+                        {
+                            Id = Guid.NewGuid(),
+                            PessoaId = parcela.PessoaId,
+                            Tipo = TipoMovimentacao.Entrada,
+                            Valor = parcela.Valor,
+                            Data = parcela.DataRecebimento.Value,
+                            Descricao = parcela.Descricao
+                        };
+                        _movimentacaoRepository.Add(mov);
+                    }
+                }
 
                 _repository.Add(parcela);
             }

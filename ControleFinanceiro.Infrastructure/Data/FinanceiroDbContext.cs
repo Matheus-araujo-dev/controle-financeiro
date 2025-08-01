@@ -42,10 +42,20 @@ namespace ControleFinanceiro.Infrastructure.Data
                 .WithMany(p => p.ContasPagar)
                 .HasForeignKey(c => c.PessoaId);
 
+            modelBuilder.Entity<ContaPagar>()
+                .HasOne(c => c.FormaPagamento)
+                .WithMany()
+                .HasForeignKey(c => c.FormaPagamentoId);
+
             modelBuilder.Entity<ContaReceber>()
                 .HasOne(c => c.Pessoa)
                 .WithMany(p => p.ContasReceber)
                 .HasForeignKey(c => c.PessoaId);
+
+            modelBuilder.Entity<ContaReceber>()
+                .HasOne(c => c.FormaPagamento)
+                .WithMany()
+                .HasForeignKey(c => c.FormaPagamentoId);
 
             modelBuilder.Entity<MovimentacaoFinanceira>()
                 .HasOne(m => m.Pessoa)
