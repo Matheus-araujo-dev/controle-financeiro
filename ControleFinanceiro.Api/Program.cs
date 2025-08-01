@@ -28,6 +28,7 @@ namespace ControleFinanceiro.Api
             builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             builder.Services.AddScoped<IFormaPagamentoRepository, FormaPagamentoRepository>();
             builder.Services.AddScoped<IContaBancariaRepository, ContaBancariaRepository>();
+            builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
 
             builder.Services.AddScoped<IPessoaAppService, PessoaAppService>();
             builder.Services.AddScoped<ICartaoAppService, CartaoAppService>();
@@ -36,6 +37,7 @@ namespace ControleFinanceiro.Api
             builder.Services.AddScoped<IMovimentacaoFinanceiraAppService, MovimentacaoFinanceiraAppService>();
             builder.Services.AddScoped<IUsuarioAppService, UsuarioAppService>();
             builder.Services.AddScoped<IContaBancariaAppService, ContaBancariaAppService>();
+            builder.Services.AddScoped<ICategoriaAppService, CategoriaAppService>();
 
             // configure encryption options
             builder.Services.Configure<CryptoOptions>(builder.Configuration.GetSection("Crypto"));
@@ -57,6 +59,13 @@ namespace ControleFinanceiro.Api
                 });
 
             builder.Services.AddAuthorization();
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(policy =>
+                    policy.WithOrigins("http://localhost:4200")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod());
+            });
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
@@ -71,6 +80,7 @@ namespace ControleFinanceiro.Api
             }
 
             app.UseAuthentication();
+            app.UseCors();
             app.UseAuthorization();
 
             app.MapControllers();

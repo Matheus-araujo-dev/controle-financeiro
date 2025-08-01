@@ -91,6 +91,31 @@ namespace ControleFinanceiro.Infrastructure.Data.Migrations
                 b.ToTable("ContasBancarias");
             });
 
+            modelBuilder.Entity("ControleFinanceiro.Domain.Entities.Categoria", b =>
+            {
+                b.Property<Guid>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("uniqueidentifier");
+
+                b.Property<string>("Descricao")
+                    .HasMaxLength(200)
+                    .HasColumnType("nvarchar(200)");
+
+                b.Property<string>("Nome")
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .HasColumnType("nvarchar(100)");
+
+                b.Property<Guid>("PessoaId")
+                    .HasColumnType("uniqueidentifier");
+
+                b.HasKey("Id");
+
+                b.HasIndex("PessoaId");
+
+                b.ToTable("Categorias");
+            });
+
             modelBuilder.Entity("ControleFinanceiro.Domain.Entities.ContaPagar", b =>
             {
                 b.Property<Guid>("Id")

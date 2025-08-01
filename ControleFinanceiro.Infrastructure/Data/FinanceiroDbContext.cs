@@ -18,6 +18,7 @@ namespace ControleFinanceiro.Infrastructure.Data
         public DbSet<FormaPagamento> FormasPagamento { get; set; }
         public DbSet<ContaBancaria> ContasBancarias { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Categoria> Categorias { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -79,6 +80,11 @@ namespace ControleFinanceiro.Infrastructure.Data
             modelBuilder.Entity<ContaBancaria>()
                 .HasOne(c => c.Pessoa)
                 .WithMany(p => p.ContasBancarias)
+                .HasForeignKey(c => c.PessoaId);
+
+            modelBuilder.Entity<Categoria>()
+                .HasOne(c => c.Pessoa)
+                .WithMany(p => p.Categorias)
                 .HasForeignKey(c => c.PessoaId);
 
 
