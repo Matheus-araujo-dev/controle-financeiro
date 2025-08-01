@@ -4,6 +4,7 @@ using System.Linq;
 using ControleFinanceiro.Domain.Entities;
 using ControleFinanceiro.Domain.Repositories;
 using ControleFinanceiro.Infrastructure.Data;
+using ControleFinanceiro.Shared.Utils;
 
 namespace ControleFinanceiro.Infrastructure.Repositories
 {
@@ -18,8 +19,10 @@ namespace ControleFinanceiro.Infrastructure.Repositories
 
         public void Add(Pessoa pessoa)
         {
+            pessoa.Documento = Crypto.Encrypt(pessoa.Documento, Constants.EncryptionKey);
             _context.Pessoas.Add(pessoa);
             _context.SaveChanges();
+            pessoa.Documento = Crypto.Decrypt(pessoa.Documento, Constants.EncryptionKey);
         }
 
         public void Delete(Guid id)
@@ -34,29 +37,52 @@ namespace ControleFinanceiro.Infrastructure.Repositories
 
         public IEnumerable<Pessoa> GetAll()
         {
-            return _context.Pessoas.Where(p => p.Ativo).ToList();
+            var pessoas = _context.Pessoas.Where(p => p.Ativo).ToList();
+            foreach (var p in pessoas)
+            {
+                p.Documento = Crypto.Decrypt(p.Documento, Constants.EncryptionKey);
+            }
+            return pessoas;
         }
 
         public Pessoa GetByDocumento(string documento)
         {
-            return _context.Pessoas.FirstOrDefault(p => p.Documento == documento && p.Ativo);
+            var enc = Crypto.Encrypt(documento, Constants.EncryptionKey);
+            var pessoa = _context.Pessoas.FirstOrDefault(p => p.Documento == enc && p.Ativo);
+            if (pessoa != null)
+            {
+                pessoa.Documento = Crypto.Decrypt(pessoa.Documento, Constants.EncryptionKey);
+            }
+            return pessoa;
         }
 
         public Pessoa GetById(Guid id)
         {
             var pessoa = _context.Pessoas.Find(id);
-            return pessoa != null && pessoa.Ativo ? pessoa : null;
+            if (pessoa != null && pessoa.Ativo)
+            {
+                pessoa.Documento = Crypto.Decrypt(pessoa.Documento, Constants.EncryptionKey);
+                return pessoa;
+            }
+            return null;
         }
 
         public IEnumerable<Pessoa> GetByNome(string nome)
         {
-            return _context.Pessoas.Where(p => p.Nome.Contains(nome) && p.Ativo).ToList();
+            var pessoas = _context.Pessoas.Where(p => p.Nome.Contains(nome) && p.Ativo).ToList();
+            foreach (var p in pessoas)
+            {
+                p.Documento = Crypto.Decrypt(p.Documento, Constants.EncryptionKey);
+            }
+            return pessoas;
         }
 
         public void Update(Pessoa pessoa)
         {
+            pessoa.Documento = Crypto.Encrypt(pessoa.Documento, Constants.EncryptionKey);
             _context.Pessoas.Update(pessoa);
             _context.SaveChanges();
+            pessoa.Documento = Crypto.Decrypt(pessoa.Documento, Constants.EncryptionKey);
         }
     }
 }

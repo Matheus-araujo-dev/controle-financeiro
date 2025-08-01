@@ -15,7 +15,7 @@ namespace ControleFinanceiro.Domain.Entities
         public string Email { get; set; }
 
         [Required]
-        [StringLength(14)]
+        [MaxLength(512)]
         public string Documento { get; set; }
 
         [Phone]
