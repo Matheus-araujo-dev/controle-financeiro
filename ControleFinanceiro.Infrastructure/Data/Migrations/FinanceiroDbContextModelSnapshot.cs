@@ -60,6 +60,37 @@ namespace ControleFinanceiro.Infrastructure.Data.Migrations
                 b.ToTable("Cartoes");
             });
 
+            modelBuilder.Entity("ControleFinanceiro.Domain.Entities.ContaBancaria", b =>
+            {
+                b.Property<Guid>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("uniqueidentifier");
+
+                b.Property<string>("Agencia")
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .HasColumnType("nvarchar(10)");
+
+                b.Property<string>("Banco")
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .HasColumnType("nvarchar(100)");
+
+                b.Property<string>("Numero")
+                    .IsRequired()
+                    .HasMaxLength(20)
+                    .HasColumnType("nvarchar(20)");
+
+                b.Property<Guid>("PessoaId")
+                    .HasColumnType("uniqueidentifier");
+
+                b.HasKey("Id");
+
+                b.HasIndex("PessoaId");
+
+                b.ToTable("ContasBancarias");
+            });
+
             modelBuilder.Entity("ControleFinanceiro.Domain.Entities.ContaPagar", b =>
             {
                 b.Property<Guid>("Id")

@@ -27,6 +27,7 @@ namespace ControleFinanceiro.Api
             builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
             builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             builder.Services.AddScoped<IFormaPagamentoRepository, FormaPagamentoRepository>();
+            builder.Services.AddScoped<IContaBancariaRepository, ContaBancariaRepository>();
 
             builder.Services.AddScoped<IPessoaAppService, PessoaAppService>();
             builder.Services.AddScoped<ICartaoAppService, CartaoAppService>();
@@ -35,6 +36,7 @@ namespace ControleFinanceiro.Api
             builder.Services.AddScoped<IMovimentacaoFinanceiraAppService, MovimentacaoFinanceiraAppService>();
             builder.Services.AddScoped<ITransactionAppService, TransactionAppService>();
             builder.Services.AddScoped<IUsuarioAppService, UsuarioAppService>();
+            builder.Services.AddScoped<IContaBancariaAppService, ContaBancariaAppService>();
 
             var jwtSection = builder.Configuration.GetSection("Jwt");
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
