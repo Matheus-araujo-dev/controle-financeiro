@@ -38,6 +38,15 @@ namespace ControleFinanceiro.Infrastructure.Data.Migrations
                     .HasMaxLength(16)
                     .HasColumnType("nvarchar(16)");
 
+                b.Property<string>("Bandeira")
+                    .IsRequired()
+                    .HasMaxLength(20)
+                    .HasColumnType("nvarchar(20)");
+
+                b.Property<string>("NumeroFinal")
+                    .HasMaxLength(4)
+                    .HasColumnType("nvarchar(4)");
+
                 b.Property<Guid>("PessoaId")
                     .HasColumnType("uniqueidentifier");
 
@@ -146,6 +155,35 @@ namespace ControleFinanceiro.Infrastructure.Data.Migrations
                 b.ToTable("MovimentacoesFinanceiras");
             });
 
+            modelBuilder.Entity("ControleFinanceiro.Domain.Entities.FormaPagamento", b =>
+            {
+                b.Property<Guid>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("uniqueidentifier");
+
+                b.Property<bool>("BaixarAutomaticamente")
+                    .HasColumnType("bit");
+
+                b.Property<Guid?>("CartaoId")
+                    .HasColumnType("uniqueidentifier");
+
+                b.Property<string>("Descricao")
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .HasColumnType("nvarchar(100)");
+
+                b.Property<Guid>("PessoaId")
+                    .HasColumnType("uniqueidentifier");
+
+                b.HasKey("Id");
+
+                b.HasIndex("CartaoId");
+
+                b.HasIndex("PessoaId");
+
+                b.ToTable("FormasPagamento");
+            });
+
             modelBuilder.Entity("ControleFinanceiro.Domain.Entities.Pessoa", b =>
             {
                 b.Property<Guid>("Id")
@@ -159,6 +197,14 @@ namespace ControleFinanceiro.Infrastructure.Data.Migrations
                     .IsRequired()
                     .HasMaxLength(14)
                     .HasColumnType("nvarchar(14)");
+
+                b.Property<bool>("Ativo")
+                    .HasColumnType("bit")
+                    .HasDefaultValue(true);
+
+                b.Property<string>("Telefone")
+                    .HasMaxLength(20)
+                    .HasColumnType("nvarchar(20)");
 
                 b.Property<string>("Email")
                     .IsRequired()
