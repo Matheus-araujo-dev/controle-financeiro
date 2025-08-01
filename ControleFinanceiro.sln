@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleFinanceiro.Infrastr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleFinanceiro.Shared", "ControleFinanceiro.Shared/ControleFinanceiro.Shared.csproj", "{3C3F1091-67D7-4122-8A1A-B1BCF3D2D86A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleFinanceiro.Tests", "ControleFinanceiro.Tests/ControleFinanceiro.Tests.csproj", "{65B4E645-F7A9-4E72-B051-CB3C1A856482}"
+EndProject
 Global
     GlobalSection(SolutionConfigurationPlatforms) = preSolution
         Debug|Any CPU = Debug|Any CPU
@@ -35,8 +37,12 @@ Global
         {37838A69-BF56-4B46-A9E4-B7EF0A1A2C06}.Release|Any CPU.ActiveCfg = Release|Any CPU
         {37838A69-BF56-4B46-A9E4-B7EF0A1A2C06}.Release|Any CPU.Build.0 = Release|Any CPU
         {3C3F1091-67D7-4122-8A1A-B1BCF3D2D86A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-        {3C3F1091-67D7-4122-8A1A-B1BCF3D2D86A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-        {3C3F1091-67D7-4122-8A1A-B1BCF3D2D86A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-        {3C3F1091-67D7-4122-8A1A-B1BCF3D2D86A}.Release|Any CPU.Build.0 = Release|Any CPU
+       {3C3F1091-67D7-4122-8A1A-B1BCF3D2D86A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+       {3C3F1091-67D7-4122-8A1A-B1BCF3D2D86A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+       {3C3F1091-67D7-4122-8A1A-B1BCF3D2D86A}.Release|Any CPU.Build.0 = Release|Any CPU
+        {65B4E645-F7A9-4E72-B051-CB3C1A856482}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {65B4E645-F7A9-4E72-B051-CB3C1A856482}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {65B4E645-F7A9-4E72-B051-CB3C1A856482}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {65B4E645-F7A9-4E72-B051-CB3C1A856482}.Release|Any CPU.Build.0 = Release|Any CPU
     EndGlobalSection
 EndGlobal

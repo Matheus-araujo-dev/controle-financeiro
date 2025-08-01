@@ -28,6 +28,10 @@ namespace ControleFinanceiro.Domain.Entities
         [Required]
         public DateTime DataVencimento { get; set; }
 
+        public Guid? FormaPagamentoId { get; set; }
+
+        public FormaPagamento FormaPagamento { get; set; }
+
         public DateTime? DataPagamento { get; set; }
 
         public bool EstaPaga { get; set; }
