@@ -62,6 +62,18 @@ namespace ControleFinanceiro.Api.Controllers
             return NoContent();
         }
 
+        [HttpPut("{id}/pagar")]
+        public IActionResult MarcarComoPaga(Guid id, [FromBody] DateTime? data)
+        {
+            var conta = _service.GetById(id);
+            if (conta == null)
+                return NotFound();
+            conta.EstaPaga = true;
+            conta.DataPagamento = data ?? DateTime.Now;
+            _service.Update(conta);
+            return NoContent();
+        }
+
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {

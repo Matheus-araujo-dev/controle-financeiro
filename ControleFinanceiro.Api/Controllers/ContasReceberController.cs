@@ -62,6 +62,18 @@ namespace ControleFinanceiro.Api.Controllers
             return NoContent();
         }
 
+        [HttpPut("{id}/receber")]
+        public IActionResult MarcarComoRecebida(Guid id, [FromBody] DateTime? data)
+        {
+            var conta = _service.GetById(id);
+            if (conta == null)
+                return NotFound();
+            conta.EstaRecebido = true;
+            conta.DataRecebimento = data ?? DateTime.Now;
+            _service.Update(conta);
+            return NoContent();
+        }
+
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {
