@@ -4,6 +4,7 @@ using System.Linq;
 using ControleFinanceiro.Domain.Entities;
 using ControleFinanceiro.Domain.Repositories;
 using ControleFinanceiro.Infrastructure.Data;
+using ControleFinanceiro.Shared.Utils;
 
 namespace ControleFinanceiro.Infrastructure.Repositories
 {
@@ -18,8 +19,10 @@ namespace ControleFinanceiro.Infrastructure.Repositories
 
         public void Add(ContaBancaria conta)
         {
+            conta.Numero = Crypto.Encrypt(conta.Numero, Constants.EncryptionKey);
             _context.ContasBancarias.Add(conta);
             _context.SaveChanges();
+            conta.Numero = Crypto.Decrypt(conta.Numero, Constants.EncryptionKey);
         }
 
         public void Delete(Guid id)
@@ -34,18 +37,30 @@ namespace ControleFinanceiro.Infrastructure.Repositories
 
         public ContaBancaria GetById(Guid id)
         {
-            return _context.ContasBancarias.Find(id);
+            var conta = _context.ContasBancarias.Find(id);
+            if (conta != null)
+            {
+                conta.Numero = Crypto.Decrypt(conta.Numero, Constants.EncryptionKey);
+            }
+            return conta;
         }
 
         public IEnumerable<ContaBancaria> GetByPessoa(Guid pessoaId)
         {
-            return _context.ContasBancarias.Where(c => c.PessoaId == pessoaId).ToList();
+            var contas = _context.ContasBancarias.Where(c => c.PessoaId == pessoaId).ToList();
+            foreach (var c in contas)
+            {
+                c.Numero = Crypto.Decrypt(c.Numero, Constants.EncryptionKey);
+            }
+            return contas;
         }
 
         public void Update(ContaBancaria conta)
         {
+            conta.Numero = Crypto.Encrypt(conta.Numero, Constants.EncryptionKey);
             _context.ContasBancarias.Update(conta);
             _context.SaveChanges();
+            conta.Numero = Crypto.Decrypt(conta.Numero, Constants.EncryptionKey);
         }
     }
 }

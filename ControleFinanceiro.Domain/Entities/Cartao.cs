@@ -9,7 +9,7 @@ namespace ControleFinanceiro.Domain.Entities
         public Guid PessoaId { get; set; }
 
         [Required]
-        [StringLength(16)]
+        [MaxLength(512)]
         public string Numero { get; set; }
 
         [Required]

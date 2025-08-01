@@ -4,6 +4,7 @@ using System.Linq;
 using ControleFinanceiro.Domain.Entities;
 using ControleFinanceiro.Domain.Repositories;
 using ControleFinanceiro.Infrastructure.Data;
+using ControleFinanceiro.Shared.Utils;
 
 namespace ControleFinanceiro.Infrastructure.Repositories
 {
@@ -18,8 +19,10 @@ namespace ControleFinanceiro.Infrastructure.Repositories
 
         public void Add(Cartao cartao)
         {
+            cartao.Numero = Crypto.Encrypt(cartao.Numero, Constants.EncryptionKey);
             _context.Cartoes.Add(cartao);
             _context.SaveChanges();
+            cartao.Numero = Crypto.Decrypt(cartao.Numero, Constants.EncryptionKey);
         }
 
         public void Delete(Guid id)
@@ -34,23 +37,40 @@ namespace ControleFinanceiro.Infrastructure.Repositories
 
         public Cartao GetById(Guid id)
         {
-            return _context.Cartoes.Find(id);
+            var cartao = _context.Cartoes.Find(id);
+            if (cartao != null)
+            {
+                cartao.Numero = Crypto.Decrypt(cartao.Numero, Constants.EncryptionKey);
+            }
+            return cartao;
         }
 
         public IEnumerable<Cartao> GetByPessoa(Guid pessoaId)
         {
-            return _context.Cartoes.Where(c => c.PessoaId == pessoaId).ToList();
+            var cartoes = _context.Cartoes.Where(c => c.PessoaId == pessoaId).ToList();
+            foreach (var c in cartoes)
+            {
+                c.Numero = Crypto.Decrypt(c.Numero, Constants.EncryptionKey);
+            }
+            return cartoes;
         }
 
         public IEnumerable<Cartao> GetVencendoAte(DateTime data)
         {
-            return _context.Cartoes.Where(c => c.DataValidade <= data).ToList();
+            var cartoes = _context.Cartoes.Where(c => c.DataValidade <= data).ToList();
+            foreach (var c in cartoes)
+            {
+                c.Numero = Crypto.Decrypt(c.Numero, Constants.EncryptionKey);
+            }
+            return cartoes;
         }
 
         public void Update(Cartao cartao)
         {
+            cartao.Numero = Crypto.Encrypt(cartao.Numero, Constants.EncryptionKey);
             _context.Cartoes.Update(cartao);
             _context.SaveChanges();
+            cartao.Numero = Crypto.Decrypt(cartao.Numero, Constants.EncryptionKey);
         }
     }
 }

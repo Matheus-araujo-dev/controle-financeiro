@@ -17,7 +17,7 @@ namespace ControleFinanceiro.Domain.Entities
         public string Agencia { get; set; }
 
         [Required]
-        [StringLength(20)]
+        [MaxLength(512)]
         public string Numero { get; set; }
 
         public Pessoa Pessoa { get; set; }
