@@ -5,24 +5,26 @@ using ControleFinanceiro.Domain.Entities;
 using ControleFinanceiro.Domain.Repositories;
 using ControleFinanceiro.Infrastructure.Data;
 using ControleFinanceiro.Shared.Utils;
+using Microsoft.Extensions.Options;
 
 namespace ControleFinanceiro.Infrastructure.Repositories
 {
     public class CartaoRepository : ICartaoRepository
     {
         private readonly FinanceiroDbContext _context;
-
-        public CartaoRepository(FinanceiroDbContext context)
+        private readonly CryptoOptions _cryptoOptions;
+        public CartaoRepository(FinanceiroDbContext context, IOptions<CryptoOptions> options)
         {
             _context = context;
+            _cryptoOptions = options.Value;
         }
 
         public void Add(Cartao cartao)
         {
-            cartao.Numero = Crypto.Encrypt(cartao.Numero, Constants.EncryptionKey);
+            cartao.Numero = Crypto.Encrypt(cartao.Numero, _cryptoOptions.Key);
             _context.Cartoes.Add(cartao);
             _context.SaveChanges();
-            cartao.Numero = Crypto.Decrypt(cartao.Numero, Constants.EncryptionKey);
+            cartao.Numero = Crypto.Decrypt(cartao.Numero, _cryptoOptions.Key);
         }
 
         public void Delete(Guid id)
@@ -40,7 +42,7 @@ namespace ControleFinanceiro.Infrastructure.Repositories
             var cartao = _context.Cartoes.Find(id);
             if (cartao != null)
             {
-                cartao.Numero = Crypto.Decrypt(cartao.Numero, Constants.EncryptionKey);
+                cartao.Numero = Crypto.Decrypt(cartao.Numero, _cryptoOptions.Key);
             }
             return cartao;
         }
@@ -50,7 +52,7 @@ namespace ControleFinanceiro.Infrastructure.Repositories
             var cartoes = _context.Cartoes.Where(c => c.PessoaId == pessoaId).ToList();
             foreach (var c in cartoes)
             {
-                c.Numero = Crypto.Decrypt(c.Numero, Constants.EncryptionKey);
+                c.Numero = Crypto.Decrypt(c.Numero, _cryptoOptions.Key);
             }
             return cartoes;
         }
@@ -60,17 +62,17 @@ namespace ControleFinanceiro.Infrastructure.Repositories
             var cartoes = _context.Cartoes.Where(c => c.DataValidade <= data).ToList();
             foreach (var c in cartoes)
             {
-                c.Numero = Crypto.Decrypt(c.Numero, Constants.EncryptionKey);
+                c.Numero = Crypto.Decrypt(c.Numero, _cryptoOptions.Key);
             }
             return cartoes;
         }
 
         public void Update(Cartao cartao)
         {
-            cartao.Numero = Crypto.Encrypt(cartao.Numero, Constants.EncryptionKey);
+            cartao.Numero = Crypto.Encrypt(cartao.Numero, _cryptoOptions.Key);
             _context.Cartoes.Update(cartao);
             _context.SaveChanges();
-            cartao.Numero = Crypto.Decrypt(cartao.Numero, Constants.EncryptionKey);
+            cartao.Numero = Crypto.Decrypt(cartao.Numero, _cryptoOptions.Key);
         }
     }
 }

@@ -48,6 +48,11 @@ Todos os projetos da solução estão configurados para o *Target Framework* `ne
    dotnet ef database update -s ControleFinanceiro.Api/ControleFinanceiro.Api.csproj -p ControleFinanceiro.Infrastructure/ControleFinanceiro.Infrastructure.csproj
    ```
 
+## Configurando a chave de criptografia
+
+Defina um valor seguro para `Crypto:Key` em `appsettings.json` ou por meio da variável de ambiente `Crypto__Key`. Essa chave é utilizada para criptografar dados sensíveis armazenados no banco de dados.
+
+
 ## Build e execução da API
 
 Restaure as dependências, compile a solução e execute o projeto da API:

@@ -2,6 +2,7 @@ using ControleFinanceiro.Infrastructure.Data;
 using ControleFinanceiro.Application.Services;
 using ControleFinanceiro.Domain.Repositories;
 using ControleFinanceiro.Infrastructure.Repositories;
+using ControleFinanceiro.Shared.Utils;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -35,6 +36,9 @@ namespace ControleFinanceiro.Api
             builder.Services.AddScoped<IMovimentacaoFinanceiraAppService, MovimentacaoFinanceiraAppService>();
             builder.Services.AddScoped<IUsuarioAppService, UsuarioAppService>();
             builder.Services.AddScoped<IContaBancariaAppService, ContaBancariaAppService>();
+
+            // configure encryption options
+            builder.Services.Configure<CryptoOptions>(builder.Configuration.GetSection("Crypto"));
 
             var jwtSection = builder.Configuration.GetSection("Jwt");
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
