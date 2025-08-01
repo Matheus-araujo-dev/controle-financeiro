@@ -35,8 +35,8 @@ namespace ControleFinanceiro.Infrastructure.Data.Migrations
 
                 b.Property<string>("Numero")
                     .IsRequired()
-                    .HasMaxLength(16)
-                    .HasColumnType("nvarchar(16)");
+                    .HasMaxLength(512)
+                    .HasColumnType("nvarchar(512)");
 
                 b.Property<string>("Bandeira")
                     .IsRequired()
@@ -78,8 +78,8 @@ namespace ControleFinanceiro.Infrastructure.Data.Migrations
 
                 b.Property<string>("Numero")
                     .IsRequired()
-                    .HasMaxLength(20)
-                    .HasColumnType("nvarchar(20)");
+                    .HasMaxLength(512)
+                    .HasColumnType("nvarchar(512)");
 
                 b.Property<Guid>("PessoaId")
                     .HasColumnType("uniqueidentifier");
@@ -263,8 +263,8 @@ namespace ControleFinanceiro.Infrastructure.Data.Migrations
 
                 b.Property<string>("Documento")
                     .IsRequired()
-                    .HasMaxLength(14)
-                    .HasColumnType("nvarchar(14)");
+                    .HasMaxLength(512)
+                    .HasColumnType("nvarchar(512)");
 
                 b.Property<bool>("Ativo")
                     .HasColumnType("bit")
