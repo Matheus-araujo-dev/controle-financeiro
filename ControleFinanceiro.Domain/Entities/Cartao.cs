@@ -13,6 +13,13 @@ namespace ControleFinanceiro.Domain.Entities
         public string Numero { get; set; }
 
         [Required]
+        [StringLength(20)]
+        public string Bandeira { get; set; }
+
+        [StringLength(4)]
+        public string NumeroFinal { get; set; }
+
+        [Required]
         [StringLength(100)]
         public string NomeImpresso { get; set; }
 

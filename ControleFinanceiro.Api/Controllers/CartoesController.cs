@@ -43,6 +43,7 @@ namespace ControleFinanceiro.Api.Controllers
         [HttpPost]
         public IActionResult Create(Cartao cartao)
         {
+            cartao.NumeroFinal = cartao.Numero?.Length > 4 ? cartao.Numero[^4..] : cartao.Numero;
             _service.Add(cartao);
             return CreatedAtAction(nameof(GetById), new { id = cartao.Id }, cartao);
         }
@@ -52,6 +53,7 @@ namespace ControleFinanceiro.Api.Controllers
         {
             if (id != cartao.Id)
                 return BadRequest();
+            cartao.NumeroFinal = cartao.Numero?.Length > 4 ? cartao.Numero[^4..] : cartao.Numero;
             _service.Update(cartao);
             return NoContent();
         }
