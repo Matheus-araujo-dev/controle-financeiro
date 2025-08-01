@@ -11,13 +11,14 @@ namespace ControleFinanceiro.Tests.Services
 {
     public class ContaBancariaCartaoEncryptionTests
     {
+        private const string Key = "0123456789abcdef0123456789abcdef";
         private class InMemoryContaBancariaRepository : IContaBancariaRepository
         {
             public readonly List<ContaBancaria> Stored = new();
 
             public void Add(ContaBancaria conta)
             {
-                var enc = Crypto.Encrypt(conta.Numero, Constants.EncryptionKey);
+                var enc = Crypto.Encrypt(conta.Numero, Key);
                 Stored.Add(new ContaBancaria
                 {
                     Id = conta.Id,
@@ -26,7 +27,7 @@ namespace ControleFinanceiro.Tests.Services
                     Agencia = conta.Agencia,
                     Numero = enc
                 });
-                conta.Numero = Crypto.Decrypt(enc, Constants.EncryptionKey);
+                conta.Numero = Crypto.Decrypt(enc, Key);
             }
 
             public void Update(ContaBancaria conta)
@@ -50,7 +51,7 @@ namespace ControleFinanceiro.Tests.Services
                     PessoaId = entity.PessoaId,
                     Banco = entity.Banco,
                     Agencia = entity.Agencia,
-                    Numero = Crypto.Decrypt(entity.Numero, Constants.EncryptionKey)
+                    Numero = Crypto.Decrypt(entity.Numero, Key)
                 };
             }
 
@@ -64,7 +65,7 @@ namespace ControleFinanceiro.Tests.Services
                         PessoaId = e.PessoaId,
                         Banco = e.Banco,
                         Agencia = e.Agencia,
-                        Numero = Crypto.Decrypt(e.Numero, Constants.EncryptionKey)
+                        Numero = Crypto.Decrypt(e.Numero, Key)
                     });
             }
         }
@@ -75,7 +76,7 @@ namespace ControleFinanceiro.Tests.Services
 
             public void Add(Cartao cartao)
             {
-                var enc = Crypto.Encrypt(cartao.Numero, Constants.EncryptionKey);
+                var enc = Crypto.Encrypt(cartao.Numero, Key);
                 Stored.Add(new Cartao
                 {
                     Id = cartao.Id,
@@ -88,7 +89,7 @@ namespace ControleFinanceiro.Tests.Services
                     Numero = enc,
                     NumeroFinal = cartao.NumeroFinal
                 });
-                cartao.Numero = Crypto.Decrypt(enc, Constants.EncryptionKey);
+                cartao.Numero = Crypto.Decrypt(enc, Key);
             }
 
             public void Update(Cartao cartao)
@@ -115,7 +116,7 @@ namespace ControleFinanceiro.Tests.Services
                     DataValidade = e.DataValidade,
                     CodigoSeguranca = e.CodigoSeguranca,
                     Limite = e.Limite,
-                    Numero = Crypto.Decrypt(e.Numero, Constants.EncryptionKey),
+                    Numero = Crypto.Decrypt(e.Numero, Key),
                     NumeroFinal = e.NumeroFinal
                 };
             }
@@ -132,7 +133,7 @@ namespace ControleFinanceiro.Tests.Services
                         DataValidade = e.DataValidade,
                         CodigoSeguranca = e.CodigoSeguranca,
                         Limite = e.Limite,
-                        Numero = Crypto.Decrypt(e.Numero, Constants.EncryptionKey),
+                        Numero = Crypto.Decrypt(e.Numero, Key),
                         NumeroFinal = e.NumeroFinal
                     });
             }
