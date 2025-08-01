@@ -24,7 +24,6 @@ namespace ControleFinanceiro.Api
             builder.Services.AddScoped<IContaPagarRepository, ContaPagarRepository>();
             builder.Services.AddScoped<IContaReceberRepository, ContaReceberRepository>();
             builder.Services.AddScoped<IMovimentacaoFinanceiraRepository, MovimentacaoFinanceiraRepository>();
-            builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
             builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             builder.Services.AddScoped<IFormaPagamentoRepository, FormaPagamentoRepository>();
             builder.Services.AddScoped<IContaBancariaRepository, ContaBancariaRepository>();
@@ -34,7 +33,6 @@ namespace ControleFinanceiro.Api
             builder.Services.AddScoped<IContaPagarAppService, ContaPagarAppService>();
             builder.Services.AddScoped<IContaReceberAppService, ContaReceberAppService>();
             builder.Services.AddScoped<IMovimentacaoFinanceiraAppService, MovimentacaoFinanceiraAppService>();
-            builder.Services.AddScoped<ITransactionAppService, TransactionAppService>();
             builder.Services.AddScoped<IUsuarioAppService, UsuarioAppService>();
             builder.Services.AddScoped<IContaBancariaAppService, ContaBancariaAppService>();
 

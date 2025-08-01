@@ -44,7 +44,7 @@ Todos os projetos da solução estão configurados para o *Target Framework* `ne
    ```
 4. Quando novas entidades forem adicionadas, gere uma nova migração, por exemplo:
    ```bash
-   dotnet ef migrations add AddUsuariosAndTransactions -s ControleFinanceiro.Api/ControleFinanceiro.Api.csproj -p ControleFinanceiro.Infrastructure/ControleFinanceiro.Infrastructure.csproj
+   dotnet ef migrations add AddUsuarios -s ControleFinanceiro.Api/ControleFinanceiro.Api.csproj -p ControleFinanceiro.Infrastructure/ControleFinanceiro.Infrastructure.csproj
    dotnet ef database update -s ControleFinanceiro.Api/ControleFinanceiro.Api.csproj -p ControleFinanceiro.Infrastructure/ControleFinanceiro.Infrastructure.csproj
    ```
 

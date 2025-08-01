@@ -17,7 +17,6 @@ namespace ControleFinanceiro.Infrastructure.Data
         public DbSet<MovimentacaoFinanceira> MovimentacoesFinanceiras { get; set; }
         public DbSet<FormaPagamento> FormasPagamento { get; set; }
         public DbSet<ContaBancaria> ContasBancarias { get; set; }
-        public DbSet<Transaction> Transactions { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
