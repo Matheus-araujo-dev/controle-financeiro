@@ -277,34 +277,6 @@ namespace ControleFinanceiro.Infrastructure.Data.Migrations
                 b.ToTable("Usuarios");
             });
 
-            modelBuilder.Entity("ControleFinanceiro.Domain.Entities.Transaction", b =>
-            {
-                b.Property<Guid>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("uniqueidentifier");
-
-                b.Property<DateTime>("Data")
-                    .HasColumnType("datetime2");
-
-                b.Property<string>("Descricao")
-                    .HasMaxLength(200)
-                    .HasColumnType("nvarchar(200)");
-
-                b.Property<Guid>("PessoaId")
-                    .HasColumnType("uniqueidentifier");
-
-                b.Property<int>("Tipo")
-                    .HasColumnType("int");
-
-                b.Property<decimal>("Valor")
-                    .HasColumnType("decimal(18,2)");
-
-                b.HasKey("Id");
-
-                b.HasIndex("PessoaId");
-
-                b.ToTable("Transactions");
-            });
 #pragma warning restore 612, 618
         }
     }
