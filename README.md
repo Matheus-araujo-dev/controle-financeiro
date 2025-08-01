@@ -73,6 +73,20 @@ Use `/api/relatorios/movimentacoes` para retornar o total de entradas e saídas 
 e `/api/relatorios/contas` para consultar o montante de contas a pagar e a receber.
 Também é possível informar o parâmetro `tipo` em `/api/relatorios/movimentacoes/tipo` para filtrar por tipo de movimentação.
 
+## Executando os testes
+
+Instale o [SDK do .NET](https://dotnet.microsoft.com/download) 8.0 ou superior e verifique se o comando `dotnet` está disponível no terminal. Caso seja a primeira vez que você clona o repositório, restaure as ferramentas locais:
+
+```bash
+dotnet tool restore
+```
+
+Depois disso, execute todos os testes unitários da solução:
+
+```bash
+dotnet test
+```
+
 ## Contribuindo
 
 Sinta-se à vontade para fazer fork deste repositório, abrir issues e enviar pull requests. Relatos de bugs e ideias de funcionalidades são bem-vindos!
