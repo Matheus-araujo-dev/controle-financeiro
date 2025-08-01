@@ -56,6 +56,13 @@ dotnet run
 
 A API escutará em `https://localhost:5001` por padrão. Para consultar e testar os endpoints disponíveis, abra `https://localhost:5001/swagger` no navegador, onde a documentação interativa do Swagger estará disponível.
 
+## Relatórios financeiros
+
+Para obter visões resumidas de receitas e despesas, a API disponibiliza o controlador `Relatorios`.
+Use `/api/relatorios/movimentacoes` para retornar o total de entradas e saídas em um período
+e `/api/relatorios/contas` para consultar o montante de contas a pagar e a receber.
+Também é possível informar o parâmetro `tipo` em `/api/relatorios/movimentacoes/tipo` para filtrar por tipo de movimentação.
+
 ## Contribuindo
 
 Sinta-se à vontade para fazer fork deste repositório, abrir issues e enviar pull requests. Relatos de bugs e ideias de funcionalidades são bem-vindos!
