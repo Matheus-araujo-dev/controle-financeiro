@@ -72,6 +72,20 @@ dotnet run
 
 A API escutará em `https://localhost:5001` por padrão. Para consultar e testar os endpoints disponíveis, abra `https://localhost:5001/swagger` no navegador, onde a documentação interativa do Swagger estará disponível.
 
+## Categorias
+
+O controlador `Categorias` oferece operações básicas de CRUD. Use os seguintes
+endpoints:
+
+- `GET /api/categorias/{id}` – obtém uma categoria pelo identificador.
+- `GET /api/categorias/pessoa/{pessoaId}` – lista as categorias de uma pessoa.
+- `POST /api/categorias` – cria uma nova categoria.
+- `PUT /api/categorias/{id}` – atualiza uma categoria existente.
+- `DELETE /api/categorias/{id}` – remove a categoria.
+
+Para que a aplicação frontend consiga acessar a API é necessário habilitar CORS.
+No `Program.cs`, o método `AddCors` já define a origem `http://localhost:4200`.
+
 ## Relatórios financeiros
 
 Para obter visões resumidas de receitas e despesas, a API disponibiliza o controlador `Relatorios`.
